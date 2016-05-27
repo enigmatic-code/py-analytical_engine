@@ -4,7 +4,7 @@
 from __future__ import print_function
 
 # https://enigmaticcode.wordpress.com/2015/09/24/running-the-first-program/
-# Program 2
+# Program 2 - ada2.py
 
 from collections import defaultdict
 from fractions import Fraction
