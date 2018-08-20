@@ -17,9 +17,9 @@ n = (40 if len(sys.argv) < 2 else int(sys.argv[1]))
   SET 1 <- 1
   SET 2 <- 1
   :loop
-  # operation 1: v[2] *= v[0]
+  # operation 1: v[2] = v[0] * v[2]
   MUL 0 2 -> 2
-  # operation 2: v[2] -= 1
+  # operation 2: v[0] = v[0] - 1
   SUB 0 1 -> 0
   # branch if non-zero to operation 1
   BRN loop
