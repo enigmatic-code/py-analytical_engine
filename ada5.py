@@ -6,7 +6,7 @@ from __future__ import print_function
 # https://enigmaticcode.wordpress.com/2015/10/14/running-the-first-program-part-2/
 # Program 4 - ada5.py
 
-from analytical_engine import AnalyticalEngine, Column
+from analytical_engine import AnalyticalEngine
 from fractions import Fraction
 from enigma import raw_input, printf
 
