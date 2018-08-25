@@ -28,7 +28,10 @@ factorial3.py - (Program 6) Factorial program for the Analytical Engine (using t
 ada6.py - (Program 7) Ada's algorithm programmes for the Analytical Engine (using the assembler).
 
 
-Additionally:
+Additionally, the following programs are adapted to use the LOADZ (destructive read) opcode in
+the Analytical Engine. In the assembler a destructive read is indicated by a trailling dot
+(e.g. "4.") on the variable index.
 
-ada5z.py - is a variant of ada5.py the uses the LOADZ (destructive read) opcode in the Analytical
-  Engine, and is probably a more historically accurate representation of Ada's program.
+ada5z.py - (Program 4 variant) Ada's algorithm implemented with opcodes.
+
+ada6z.py - (Program 7 variant) Ada's algorithm implement using the assembler.
