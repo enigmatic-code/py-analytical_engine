@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Wed Oct 21 13:33:25 2015 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sat Aug 25 14:48:56 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -27,7 +27,7 @@
 from __future__ import print_function
 
 __author__ = "Jim Randell <jim.randel@gmail.com>"
-__version__ = "2015-10-16"
+__version__ = "2018-08-25"
 
 ###############################################################################
 
@@ -107,6 +107,8 @@ class AnalyticalEngine(object):
     self.number = _column
     # trace flag
     self.trace = False
+    # enable warnings?
+    self.warn = False
 
     # set options
     for (k, v) in kw.items():
@@ -232,10 +234,18 @@ class AnalyticalEngine(object):
     self.index ^= 1
 
   # LOAD <i>
-  # load the input register from variable <i> in the store
+  # load the input register from variable <i> in the store, keeping the value in the variable
   def LOAD(self, i):
     v = self.v[i]
     if self.trace: print(": LOAD i[{index}] <- v[{i}] = {v}".format(index=self.index, i=i, v=v))
+    self._load(v)
+
+  # LOADZ <i>
+  # load the input register from variable <i> in the store, and zero the variable
+  def LOADZ(self, i):
+    v = self.v[i]
+    self.v[i] = self.zero # destructive read
+    if self.trace: print(": LOADZ i[{index}] <- v[{i}] = {v}".format(index=self.index, i=i, v=v))
     self._load(v)
 
   # LOAD_DATA
@@ -248,8 +258,10 @@ class AnalyticalEngine(object):
 
   # STORE <i>
   # store the result to variable <i> in the store
+  # TODO: the AE may have required that the current value was zero
   def STORE(self, i):
     if self.trace: print(": STORE v[{i}] <- {result}".format(i=i, result=self.result))
+    if self.warn and self.v[i] != self.zero: print(">>> WARNING: STORE to non-zero variable, v[{i}] = {v}".format(i=i, v=self.v[i]))
     self.v[i] = self.result
 
   # PRINT
