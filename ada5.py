@@ -6,11 +6,12 @@ from __future__ import print_function
 # https://enigmaticcode.wordpress.com/2015/10/14/running-the-first-program-part-2/
 # Program 4 - ada5.py
 
-from analytical_engine import AnalyticalEngine
+from analytical_engine import AnalyticalEngine, Column
 from fractions import Fraction
 from enigma import raw_input, printf
 
 # initialise the engine
+#p = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), trace=0)
 p = AnalyticalEngine(vars=14, number=Fraction)
 
 # load the program
