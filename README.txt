@@ -26,3 +26,9 @@ factorial2.py - (Program 5) Factorial program for the Analytical Engine (using C
 factorial3.py - (Program 6) Factorial program for the Analytical Engine (using the assembler).
 
 ada6.py - (Program 7) Ada's algorithm programmes for the Analytical Engine (using the assembler).
+
+
+Additionally:
+
+ada5z.py - is a variant of ada5.py the uses the LOADZ (destructive read) opcode in the Analytical
+  Engine, and is probably a more historically accurate representation of Ada's program.
