@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sat Aug 25 14:48:56 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sat Aug 25 15:43:33 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -312,7 +312,12 @@ def assemble(ss):
       if t in ('->', '<-'): continue
       # turn numbers into ints
       try:
-        yield int(t)
+        if t.endswith('.'):
+          # trailling dot = destructive read, use a negative value index
+          yield -(int(t[:-1:]) + 1)
+        else:
+          # non-destructive read, use a normal index
+          yield int(t)
       except ValueError:
         yield t
 
@@ -352,7 +357,12 @@ def assemble(ss):
           program.append(['LOAD_DATA'])
         else:
           # otherwise load from the store
-          program.append(['LOAD', v])
+          if v < 0:
+            # negative indices indicate destructive reads
+            program.append(['LOADZ', -(v + 1)])
+          else:
+            # non-destructive read
+            program.append(['LOAD', v])
       for v in s[3:]:
         program.append(['STORE', v])
     else:
