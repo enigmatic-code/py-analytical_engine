@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sat Aug 25 15:43:33 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sun Aug 26 08:33:56 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -170,10 +170,9 @@ class AnalyticalEngine(object):
         # get the next instruction
         assert not(self.pc < 0), "Invalid PC"
         p = self.program[self.pc]
+        self.pc += 1
         # execute it
         getattr(self, p[0])(*p[1:])
-        # increment the program counter
-        self.pc += 1
         # record stats
         if p[0] in stats:
           stats[p[0]] += 1
@@ -298,6 +297,10 @@ class AnalyticalEngine(object):
     if self.result != self.zero:
       self._branch(offset)
 
+  # assemble a program
+  def assemble(self, ss):
+    return assemble(ss)
+
 ###############################################################################
 
 # an assembler for the Analytical Engine
@@ -364,6 +367,7 @@ def assemble(ss):
             # non-destructive read
             program.append(['LOAD', v])
       for v in s[3:]:
+        assert not(v < 0), "invalid STORE"
         program.append(['STORE', v])
     else:
       # everything else
