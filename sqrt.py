@@ -11,31 +11,31 @@ from analytical_engine import AnalyticalEngine, Column
 from sys import argv
 n = (2 if len(argv) < 2 else argv[1])
 
-# initialise the engine using 10.40f numbers
-ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
-
-# we use 6 variable in the AE:
-# v0 = 0
-# v1 = n (input parameter)
-# v2 = 0.5 (constant, we multiply by 0.5 instead of dividing by 2)
+# we use 6 variables in the AE:
+# v0 = 0 (constant)
+# v1 = 0.5 (constant, we multiply by 0.5 instead of dividing by 2)
+# v2 = n (input parameter)
 # v3 = x (output parameter, approximation to square root)
 # v4 = x' (previous value of x)
 # v5 = t (temporary variable)
 
+# initialise the engine using 10.40f numbers
+ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
+
 (program, _) = ae.assemble("""
   :init
   SET v0 <- 0
-  SET v1 <- {n}
-  SET v2 <- 0.5
+  SET v1 <- 0.5
+  SET v2 <- {n}
   # initial guess: x = n * 0.5
   MUL v1 v2 -> v3
   :loop
   # save current guess
   ADD v3 0 -> v4
   # x = (n / x + x) * 0.5
-  DIV v1 v3 -> v5
+  DIV v2 v3 -> v5
   ADD v5 v3 -> v5
-  MUL v5 v2 -> v3
+  MUL v5 v1 -> v3
   # test against previous value
   SUB v3 v4
   BRN loop
