@@ -5,7 +5,7 @@ from __future__ import print_function
 
 # calcuate square roots (using Newton's method)
 
-from analytical_engine import AnalyticalEngine, Column
+from analytical_engine import AnalyticalEngine
 
 from sys import argv
 n = (2 if len(argv) < 2 else argv[1])
@@ -19,7 +19,7 @@ n = (2 if len(argv) < 2 else argv[1])
 # v5 = t (temporary variable)
 
 # initialise the engine using 10.40f numbers
-ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=1, trace=0)
+ae = AnalyticalEngine(vars=6, warn=1, trace=0)
 
 (program, _) = ae.assemble("""
   :init
