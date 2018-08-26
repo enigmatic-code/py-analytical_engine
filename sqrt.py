@@ -39,7 +39,7 @@ ae = AnalyticalEngine(vars=6, number=col, warn=0, trace=0)
   DIV v1 v3 -> v5
   ADD v5 v3 -> v5
   MUL v5 v2 -> v3
-  # test against current previous value
+  # test against previous value
   SUB v3 v4
   BRN loop
   HALT
