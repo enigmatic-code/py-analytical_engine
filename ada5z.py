@@ -5,12 +5,11 @@ from __future__ import print_function
 
 # alternative implementation of ada5.py using the LOADZ opcode where appropriate
 
-from analytical_engine import AnalyticalEngine, Column
+from analytical_engine import AnalyticalEngine
 from fractions import Fraction
 from enigma import raw_input, printf
 
 # initialise the engine
-#ae = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), trace=0, warn=1)
 ae = AnalyticalEngine(vars=14, number=Fraction, trace=0, warn=1)
 
 # load the program
