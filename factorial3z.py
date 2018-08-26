@@ -20,10 +20,10 @@ ae = AnalyticalEngine(vars=3, number=Column(digits=50), warn=1, trace=0)
   SET v1 <- 1
   SET v2 <- 1
   :loop
-  # operation 1: v[2] = v[0] * v[2]
+  # operation 1: v2 = v0 * v2
   MUL v0 v2. -> v2
-  # operation 2: v[0] = v[0] - 1
-  SUB v0. v1 -> v0
+  # operation 2: v0 = v0 - 1
+  SUB v0. 1 -> v0
   # branch if non-zero to operation 1
   BRN loop
   # end
@@ -36,5 +36,5 @@ ae.load_program(program)
 # run the program
 ae.run()
 
-# the result is in v[2]
+# the result is in v2
 print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
