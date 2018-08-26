@@ -8,11 +8,14 @@ from __future__ import print_function
 
 from analytical_engine import AnalyticalEngine, Column
 
+# compute factorial(n)
+from sys import argv
+n = (40 if len(argv) < 2 else int(argv[1]))
+
 # initialise the engine
 ae = AnalyticalEngine(vars=3, number=Column(digits=50))
 
-# load the program to compute factorial(40)
-n = 40
+# load the program
 ae.load_program([
   # initialisation
   ['SET', 0, n],
@@ -38,4 +41,4 @@ ae.load_program([
 ae.run()
 
 # the result is in v2
-print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
+print("factorial({n}) = {r}".format(n=n, r=ae.v[2]))
