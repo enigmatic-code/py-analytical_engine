@@ -12,48 +12,51 @@ from enigma import raw_input, printf
 # initialise the engine
 ae = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), warn=1, trace=0)
 
+from fractions import Fraction
+ae = AnalyticalEngine(vars=14, number=Fraction, warn=1, trace=0)
+
 # assemble the program
 (program, labels) = ae.assemble("""
   :init
-  SET 0 <- 0
-  SET 1 <- 1
-  SET 2 <- 2
-  SET 3 <- 1
+  SET v0 <- 0
+  SET v1 <- 1
+  SET v2 <- 2
+  SET v3 <- 1
   :start
-  MUL 2 3 -> 4 5 6
-  SUB 4. 1 -> 4
-  ADD 5. 1 -> 5
-  DIV 4. 5. -> 11
-  DIV 11. 2 -> 11
-  SUB 13. 11. -> 13
-  SUB 3 1 -> 10
+  MUL v2 v3 -> v4 v5 v6
+  SUB v4. 1 -> v4
+  ADD v5. 1 -> v5
+  DIV v4. v5. -> v11
+  DIV v11. 2 -> v11
+  SUB v13. v11. -> v13
+  SUB v3 1 -> v10
   BRZ finish
-  ADD 2 7. -> 7
-  DIV 6 7 -> 11
-  MUL DATA 11 -> 12
-  ADD 12. 13. -> 13
-  SUB 10. 1 -> 10
+  ADD v2 v7. -> v7
+  DIV v6 v7 -> v11
+  MUL DATA v11 -> v12
+  ADD v12. v13. -> v13
+  SUB v10. 1 -> v10
   BRZ finish
   :loop
-  SUB 6. 1 -> 6
-  ADD 1 7. -> 7
-  DIV 6 7 -> 8
-  MUL 8. 11. -> 11
-  SUB 6. 1 -> 6
-  ADD 1 7. -> 7
-  DIV 6 7 -> 9
-  MUL 9. 11. -> 11
-  MUL DATA 11 -> 12
-  ADD 12. 13. -> 13
-  SUB 10. 1 -> 10
+  SUB v6. 1 -> v6
+  ADD 1 v7. -> v7
+  DIV v6 v7 -> v8
+  MUL v8. v11. -> v11
+  SUB v6. 1 -> v6
+  ADD 1 v7. -> v7
+  DIV v6 v7 -> v9
+  MUL v9. v11. -> v11
+  MUL DATA v11 -> v12
+  ADD v12. v13. -> v13
+  SUB v10. 1 -> v10
   BRN loop
   :finish
-  SUB 0 13.
+  SUB 0 v13.
   PRINT
-  ADD 1 3. -> 3
-  SET 6 <- 0
-  SET 7 <- 0
-  SET 11 <- 0
+  ADD 1 v3. -> v3
+  SET v6 <- 0
+  SET v7 <- 0
+  SET v11 <- 0
   HALT
 """)
 
