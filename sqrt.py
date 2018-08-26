@@ -12,8 +12,7 @@ from sys import argv
 n = (2 if len(argv) < 2 else argv[1])
 
 # initialise the engine using 10.40f numbers
-col = Column(digits=10, dp=40)
-ae = AnalyticalEngine(vars=6, number=col, warn=0, trace=0)
+ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
 
 # we use 6 variable in the AE:
 # v0 = 0
