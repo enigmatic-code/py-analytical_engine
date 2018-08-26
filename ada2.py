@@ -129,12 +129,8 @@ def bernoulli():
 
 
 # run N iterations of the algorithm
-N = 10
-
-# allow N to be specified as a command line argument
-import sys
-if len(sys.argv) > 1:
-  N = int(sys.argv[1])
+from sys import argv
+N = (10 if len(argv) < 2 else int(argv[1]))
 
 k = 1 # ada's numbering (normal numbering is k + 1)
 K = 2 * N + 1 # max k
