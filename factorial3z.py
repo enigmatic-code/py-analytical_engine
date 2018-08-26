@@ -8,8 +8,8 @@ from __future__ import print_function
 
 from analytical_engine import AnalyticalEngine, Column
 
-import sys
-n = (40 if len(sys.argv) < 2 else int(sys.argv[1]))
+from sys import argv
+n = (40 if len(argv) < 2 else int(argv[1]))
 
 # initialise the engine
 ae = AnalyticalEngine(vars=3, number=Column(digits=50), warn=1, trace=0)
@@ -37,4 +37,4 @@ ae.load_program(program)
 ae.run()
 
 # the result is in v2
-print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
+print("factorial({n}) = {r}".format(n=n, r=ae.v[2]))
