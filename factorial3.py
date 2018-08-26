@@ -6,12 +6,15 @@ from __future__ import print_function
 # https://enigmaticcode.wordpress.com/2015/10/21/running-the-first-program-part-3/
 # Program 6 - factorial3.py
 
-from analytical_engine import AnalyticalEngine, Column, assemble
+from analytical_engine import AnalyticalEngine, Column
 
 import sys
 n = (40 if len(sys.argv) < 2 else int(sys.argv[1]))
 
-(program, _) = assemble("""
+# initialise the engine
+ae = AnalyticalEngine(vars=3, number=Column(digits=50), trace=1)
+
+(program, _) = ae.assemble("""
   :init
   SET 0 <- {n}
   SET 1 <- 1
@@ -27,14 +30,11 @@ n = (40 if len(sys.argv) < 2 else int(sys.argv[1]))
   HALT
 """.format(n=n))
 
-# initialise the engine
-p = AnalyticalEngine(vars=3, number=Column(digits=50), trace=1)
-
 # load the program to compute factorial(n)
-p.load_program(program)
+ae.load_program(program)
 
 # run the program
-p.run()
+ae.run()
 
 # the result is in v[2]
-print("factorial({n}) = {f}".format(n=n, f=p.v[2]))
+print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
