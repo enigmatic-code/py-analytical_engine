@@ -10,11 +10,11 @@ from fractions import Fraction
 from enigma import raw_input, printf
 
 # initialise the engine
-#p = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), trace=0, warn=1)
-p = AnalyticalEngine(vars=14, number=Fraction, trace=0, warn=1)
+#ae = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), trace=0, warn=1)
+ae = AnalyticalEngine(vars=14, number=Fraction, trace=0, warn=1)
 
 # load the program
-p.load_program([
+ae.load_program([
   # initialisation
   ['SET', 0, 0],
   ['SET', 1, 1],
@@ -171,10 +171,10 @@ start = 0
 # run the program
 while True:
   # load the data and run the program
-  p.load_data(data)
-  p.run(start)
+  ae.load_data(data)
+  ae.run(start)
   # get the computed result from the output transcript
-  r = (p.output[-1] if p.output else None)
+  r = (ae.output[-1] if ae.output else None)
 
   # display the computed result
   printf("B[{k}] = {r}")
