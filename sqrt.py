@@ -4,7 +4,6 @@
 from __future__ import print_function
 
 # calcuate square roots (using Newton's method)
-# (using non-destructive reads and overwriting writes)
 
 from analytical_engine import AnalyticalEngine, Column
 
@@ -20,7 +19,7 @@ n = (2 if len(argv) < 2 else argv[1])
 # v5 = t (temporary variable)
 
 # initialise the engine using 10.40f numbers
-ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
+ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=1, trace=0)
 
 (program, _) = ae.assemble("""
   :init
@@ -34,10 +33,10 @@ ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
   ADD v3 0 -> v4
   # x = (n / x + x) * 0.5
   DIV v2 v3 -> v5
-  ADD v5 v3 -> v5
-  MUL v5 v1 -> v3
+  ADD v5. v3. -> v5
+  MUL v5. v1 -> v3
   # test against previous value
-  SUB v3 v4
+  SUB v3 v4.
   BRN loop
   HALT
 """.format(n=n))
