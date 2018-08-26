@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sun Aug 26 13:37:54 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sun Aug 26 14:17:29 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -33,6 +33,8 @@ __version__ = "2018-08-26"
 
 # implementation of the columns in the Analytical Engine
 
+from decimal import Decimal
+
 class OverflowException(Exception): pass
 
 # a column with <digits> whole decimal digits and <dp> fractional decimal digits
@@ -46,7 +48,7 @@ def Column(digits=50, dp=0):
 
     # create a value, and check for overflow
     def __init__(self, n=0, shift=shift):
-      if shift: n *= shift
+      n = int(Decimal(n) * shift)
       if abs(n) > overflow:
         raise OverflowException("Overflow in column")
       self.n = n
@@ -61,16 +63,16 @@ def Column(digits=50, dp=0):
     # arithmetic operations
 
     def __add__(self, value):
-      return Column(self.n + value.n, shift=0)
+      return Column(self.n + value.n, shift=1)
 
     def __sub__(self, value):
-      return Column(self.n - value.n, shift=0)
+      return Column(self.n - value.n, shift=1)
 
     def __mul__(self, value):
-      return Column((self.n * value.n) // shift, shift=0)
+      return Column((self.n * value.n) // shift, shift=1)
 
     def __div__(self, value):
-      return Column((self.n * shift) // value.n, shift=0)
+      return Column((self.n * shift) // value.n, shift=1)
 
     # Python 3 uses __truediv__
     __truediv__ = __div__
