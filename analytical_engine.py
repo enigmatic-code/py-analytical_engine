@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sun Aug 26 10:19:10 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sun Aug 26 13:37:54 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -145,18 +145,24 @@ class AnalyticalEngine(object):
     self.program = program
     self.pc = 0
     if self.trace:
-      print(">>> Loaded program")
-      for (i, s) in enumerate(program):
-        print("{i:3d}: {s}".format(i=i, s=s))
+      print(">>> Loaded program cards:")
+      if program:
+        for (i, s) in enumerate(program):
+          print("{i:3d}: {s}".format(i=i, s=s))
+      else:
+        print("[none]")
 
   # load the data
   def load_data(self, data):
     self.data = data
     self.dc = 0
     if self.trace:
-      print(">>> Loaded data")
-      for (i, s) in enumerate(data):
-        print("{i:3d}: {s}".format(i=i, s=s))
+      print(">>> Loaded data cards:")
+      if data:
+        for (i, s) in enumerate(data):
+          print("{i:3d}: {s}".format(i=i, s=s))
+      else:
+        print("[none]")
 
   # run the program (starting at instruction start)
   def run(self, start=0):
@@ -314,13 +320,14 @@ def assemble(ss):
       # drop syntactic sugar
       if t in ('->', '<-'): continue
       # turn numbers into ints
+      v = t.startswith('v') # variable indices may be optionally prefixed with 'v'
       try:
         if t.endswith('.'):
-          # trailling dot = destructive read, use a negative value index
-          yield -(int(t[:-1:]) + 1)
+          # trailing '.' = destructive read, use a negative value index
+          yield -(int(t[v:-1:]) + 1)
         else:
           # non-destructive read, use a normal index
-          yield int(t)
+          yield int(t[v:])
       except ValueError:
         yield t
 
