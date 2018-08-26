@@ -9,8 +9,11 @@ from __future__ import print_function
 from analytical_engine import AnalyticalEngine, Column, assemble
 from enigma import raw_input, printf
 
+# initialise the engine
+ae = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), warn=1, trace=0)
+
 # assemble the program
-(program, labels) = assemble("""
+(program, labels) = ae.assemble("""
   :init
   SET 0 <- 0
   SET 1 <- 1
@@ -54,11 +57,8 @@ from enigma import raw_input, printf
   HALT
 """)
 
-# initialise the engine
-p = AnalyticalEngine(vars=14, number=Column(digits=10, dp=40), warn=1, trace=0)
-
 # load the program
-p.load_program(program)
+ae.load_program(program)
 
 # indices B[k]
 k = 1
@@ -69,10 +69,10 @@ start = labels['init']
 # run the program
 while True:
   # load the data and run the program
-  p.load_data(data)
-  p.run(start)
+  ae.load_data(data)
+  ae.run(start)
   # get the computed result from the output transcript
-  r = (p.output[-1] if p.output else None)
+  r = (ae.output[-1] if ae.output else None)
 
   # display the computed result
   printf("B[{k}] = {r}")
