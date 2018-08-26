@@ -9,9 +9,7 @@ from __future__ import print_function
 from analytical_engine import AnalyticalEngine, Column
 
 from sys import argv
-from decimal import Decimal
-
-n = Decimal('2.0' if len(argv) < 2 else argv[1])
+n = ('2.0' if len(argv) < 2 else argv[1])
 
 # initialise the engine using 10.20f numbers
 col = Column(digits=10, dp=20)
