@@ -4,7 +4,6 @@
 from __future__ import print_function
 
 # calcuate an approximation to pi
-# (using non-destructive reads and overwriting writes)
 #
 # pi/2 = 1 + 1/3 + (1/3)(2/5) + (1/3)(2/5)(3/7) + ...
 #
@@ -20,7 +19,7 @@ from __future__ import print_function
 from analytical_engine import AnalyticalEngine, Column
 
 # initialise the engine using 10.40f numbers
-ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
+ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=1, trace=0)
 
 (program, _) = ae.assemble("""
   :init
@@ -31,15 +30,15 @@ ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=0, trace=0)
   SET v5 <- 2
   :repeat
   # add in the current term
-  ADD v0 v1 -> v0
+  ADD v0. v1 -> v0
   # calculate the next term: t = t * a / b
-  MUL v1 v2 -> v1
-  DIV v1 v3 -> v1
+  MUL v1. v2 -> v1
+  DIV v1. v3 -> v1
   # have we run out of accuracy?
   BRZ exit
   # increment a and b
-  ADD v2 v4 -> v2
-  ADD v3 v5 -> v3
+  ADD v2. v4 -> v2
+  ADD v3. v5 -> v3
   BRA repeat
   :exit
   HALT
