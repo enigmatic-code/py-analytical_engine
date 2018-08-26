@@ -16,10 +16,10 @@ from __future__ import print_function
 #  v4 = 1 (constant, numerator increment)
 #  v5 = 2 (constant, denominator increment)
 
-from analytical_engine import AnalyticalEngine, Column
+from analytical_engine import AnalyticalEngine
 
-# initialise the engine using 10.40f numbers
-ae = AnalyticalEngine(vars=6, number=Column(digits=10, dp=40), warn=1, trace=0)
+# initialise the engine
+ae = AnalyticalEngine(vars=6, warn=1, trace=0)
 
 (program, _) = ae.assemble("""
   :init
