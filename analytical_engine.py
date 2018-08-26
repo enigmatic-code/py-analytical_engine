@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sun Aug 26 14:17:29 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sun Aug 26 15:26:30 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -33,7 +33,7 @@ __version__ = "2018-08-26"
 
 # implementation of the columns in the Analytical Engine
 
-from decimal import Decimal
+from fractions import Fraction
 
 class OverflowException(Exception): pass
 
@@ -48,7 +48,7 @@ def Column(digits=50, dp=0):
 
     # create a value, and check for overflow
     def __init__(self, n=0, shift=shift):
-      n = int(Decimal(n) * shift)
+      n = int(Fraction(n) * shift)
       if abs(n) > overflow:
         raise OverflowException("Overflow in column")
       self.n = n
