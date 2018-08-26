@@ -18,12 +18,12 @@ ae.load_program([
   ['SET', 0, n],
   ['SET', 1, 1],
   ['SET', 2, 1],
-  # operation 1: v[2] = v[0] * v[2]
+  # operation 1: v2 = v0 * v2
   ['MUL'],
   ['LOAD', 0],
   ['LOAD', 2],
   ['STORE', 2],
-  # operation 2: v[0] = v[0] - 1
+  # operation 2: v0 = v0 - 1
   ['SUB'],
   ['LOAD', 0],
   ['LOAD', 1],
@@ -37,5 +37,5 @@ ae.load_program([
 # run the program
 ae.run()
 
-# the result is in v[2]
+# the result is in v2
 print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
