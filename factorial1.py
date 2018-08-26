@@ -41,4 +41,4 @@ ae.load_program([
 ae.run()
 
 # the result is in v2
-print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
+print("factorial({n}) = {r}".format(n=n, r=ae.v[2]))
