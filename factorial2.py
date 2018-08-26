@@ -9,11 +9,11 @@ from __future__ import print_function
 from analytical_engine import AnalyticalEngine, Column
 
 # initialise the engine
-p = AnalyticalEngine(vars=3, number=Column(digits=50))
+ae = AnalyticalEngine(vars=3, number=Column(digits=50))
 
 # load the program to compute factorial(40)
 n = 40
-p.load_program([
+ae.load_program([
   # initialisation
   ['SET', 0, n],
   ['SET', 1, 1],
@@ -35,7 +35,7 @@ p.load_program([
 ])
 
 # run the program
-p.run()
+ae.run()
 
 # the result is in v[2]
-print("factorial({n}) = {f}".format(n=n, f=p.v[2]))
+print("factorial({n}) = {f}".format(n=n, f=ae.v[2]))
