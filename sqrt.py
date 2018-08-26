@@ -18,7 +18,7 @@ n = (2 if len(argv) < 2 else argv[1])
 # v4 = x' (previous value of x)
 # v5 = t (temporary variable)
 
-# initialise the engine using 10.40f numbers
+# initialise the engine
 ae = AnalyticalEngine(vars=6, warn=1, trace=0)
 
 (program, _) = ae.assemble("""
