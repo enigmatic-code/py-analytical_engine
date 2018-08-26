@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sun Aug 26 15:26:30 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Sun Aug 26 17:50:43 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -305,6 +305,13 @@ class AnalyticalEngine(object):
     if self.result != self.zero:
       self._branch(offset)
 
+  # BRA <offset>
+  # branch always:
+  # move the program instructions by <offset>
+  def BRA(self, offset):
+    if self.trace: print(": BRA {offset}".format(offset=offset))
+    self._branch(offset)
+
   # assemble a program
   def assemble(self, ss):
     return assemble(ss)
@@ -385,7 +392,7 @@ def assemble(ss):
   # pass 2:
   # - calculate branches in the program
   for (i, s) in enumerate(program):
-    if s[0] in ('BRZ', 'BRN'):
+    if s[0].startswith('BR'): # ('BRZ', 'BRN', 'BRA')
       # <branch> <offset>
       if isinstance(s[1], str):
         # only replace symbolic (string) labels
