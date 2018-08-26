@@ -8,11 +8,14 @@ from __future__ import print_function
 
 from analytical_engine import AnalyticalEngine
 
+# compute factorial(n)
+from sys import argv
+n = (12 if len(argv) < 2 else int(argv[1]))
+
 # initialise the engine
 ae = AnalyticalEngine(vars=3, number=int)
 
-# load the program to compute factorial(12)
-n = 12
+# load the program
 ae.load_program([
   # initialisation
   ['SET', 0, n],
