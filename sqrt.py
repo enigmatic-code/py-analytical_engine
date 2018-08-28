@@ -24,14 +24,14 @@ ae = AnalyticalEngine(vars=6, warn=1, trace=0)
 (program, _) = ae.assemble("""
   :init
   SET v0 <- 0
-  SET v1 <- 0.5
+  SET v1 <- 1/2
   SET v2 <- {n}
-  # initial guess: x = n * 0.5
+  # initial guess: x = n / 2
   MUL v1 v2 -> v3
   :loop
   # save current guess
   ADD v3 0 -> v4
-  # x = (n / x + x) * 0.5
+  # x = (n / x + x) / 2
   DIV v2 v3 -> v5
   ADD v5. v3. -> v5
   MUL v5. v1 -> v3
