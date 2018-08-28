@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Sun Aug 26 17:50:43 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Tue Aug 28 08:58:17 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -192,6 +192,7 @@ class AnalyticalEngine(object):
       print(">>> Execution halted")
 
     if self.trace: print(">>> Stats: {stats}".format(stats=stats))
+    self.stats = stats
 
   # implement the opcodes
 
