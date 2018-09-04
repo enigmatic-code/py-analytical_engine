@@ -6,7 +6,7 @@
 # Description:  An Emulator for Babbage's Analytical Engine
 # Author:       Jim Randell
 # Created:      Wed Oct 12 08:51:22 2015
-# Modified:     Tue Aug 28 08:58:17 2018 (Jim Randell) jim.randell@gmail.com
+# Modified:     Fri Aug 31 14:01:11 2018 (Jim Randell) jim.randell@gmail.com
 # Language:     Python
 # Package:      N/A
 # Status:       Experimental (Do Not Distribute)
@@ -84,6 +84,9 @@ def Column(digits=50, dp=0):
 
     def __ne__(self, value):
       return self.n != value.n
+
+    def __lt__(self, value):
+      return self.n < value.n
 
   return Column
 
@@ -312,6 +315,22 @@ class AnalyticalEngine(object):
   def BRA(self, offset):
     if self.trace: print(": BRA {offset}".format(offset=offset))
     self._branch(offset)
+
+  # BRP <offset>
+  # branch if positive (plus):
+  # if the result is positive move the program instructions by <offset>
+  def BRP(self, offset):
+    if self.trace: print(": BRP {offset}".format(offset=offset))
+    if self.result > self.zero:
+      self._branch(offset)
+
+  # BRM <offset>
+  # branch if negative (minus):
+  # if the result is negative move the program instructions by <offset>
+  def BRM(self, offset):
+    if self.trace: print(": BRM {offset}".format(offset=offset))
+    if self.result < self.zero:
+      self._branch(offset)
 
   # assemble a program
   def assemble(self, ss):
